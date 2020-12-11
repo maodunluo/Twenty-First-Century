@@ -1,4 +1,4 @@
-# twenty-one-centuries
+# download twenty-first-century
 <p>下载《二十一世纪》期刊全文版到jar包所在文件夹。</p>
 <p>目前是第1到178期。<p>
 <p>该期刊在官网提供免费阅读下载，但是没有批量下载功能。</p>
