@@ -24,7 +24,7 @@ public class JsoupUtils {
         Document doc = Jsoup.parse(webContent);
         Element element = doc.getElementsByClass("content").first();
         Elements authors = element.select(".c2");
-        Elements pdfs = element.select(".c3 > a");
+        Elements pdfElements = element.select(".c3 > a");
 
         List<String> authorList = new ArrayList<>();
         for (Element author : authors) {
@@ -32,23 +32,22 @@ public class JsoupUtils {
         }
         List<String> pdfTopicList = new ArrayList<>();
         List<String> pdfUrlList = new ArrayList<>();
-        for (int i = 0; i < pdfs.size(); i++) {
-            if (pdfs.get(i).text().contains("附录")) {
+        for (int i = 0; i < pdfElements.size(); i++) {
+            if (pdfElements.get(i).text().contains("附录")) {
                 authorList.add(i, authorList.get(i - 1));
             }
-            pdfTopicList.add(pdfs.get(i).text());
-            pdfUrlList.add(PREURL + pdfs.get(i).attr("href").substring(6));
+            pdfTopicList.add(pdfElements.get(i).text());
+            pdfUrlList.add(PREURL + pdfElements.get(i).attr("href").substring(6));
         }
-
-        return getArticleList(pdfs, authorList, pdfTopicList, pdfUrlList);
+        return getArticleList(pdfElements, authorList, pdfTopicList, pdfUrlList);
     }
 
-    private static List<Article> getArticleList(Elements pdfs, List<String> authorList, List<String> pdfTopicList, List<String> pdfUrlList) {
-        List<Article> articleList = new ArrayList<>(pdfs.size());
+    private static List<Article> getArticleList(Elements pdfElements, List<String> authorList, List<String> pdfTopicList, List<String> pdfUrlList) {
+        List<Article> articleList = new ArrayList<>(pdfElements.size());
         String count = pdfUrlList
                 .get(0)
                 .substring(pdfUrlList.get(0).lastIndexOf("c") + 1, pdfUrlList.get(0).lastIndexOf('-'));
-        for (int i = 0; i < pdfs.size(); i++) {
+        for (int i = 0; i < pdfElements.size(); i++) {
             Article article = new Article();
             article.setAddress(pdfUrlList.get(i));
             article.setTopic(pdfTopicList.get(i));

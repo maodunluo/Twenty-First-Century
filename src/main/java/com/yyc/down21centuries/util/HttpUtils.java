@@ -8,6 +8,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -29,6 +31,7 @@ public class HttpUtils {
     private static final int OK = 200;
     private static final String URLSUFFIX = ".html";
     private static final String PDFSUFFIX = ".pdf";
+    private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
     private final PoolingHttpClientConnectionManager cm;
 
@@ -40,6 +43,29 @@ public class HttpUtils {
         this.cm.setDefaultMaxPerRoute(10);
     }
 
+    /**
+     * 得到全文版的urlList
+     *
+     * @param preUrl url前缀
+     * @param fullTextIndex 目前有全文版的期数
+     * @return 拼接好的urlList
+     */
+    public List<String> getUrlList(String preUrl, int fullTextIndex) {
+        List<String> urlList = new ArrayList<>();
+        for (int i = 1; i <= fullTextIndex; i++) {
+            String url;
+            if (i < 10) {
+                url = preUrl + "c00" + i + URLSUFFIX;
+            } else if (i < 100) {
+                url = preUrl + "c0" + i + URLSUFFIX;
+            } else {
+                url = preUrl + "c" + i + URLSUFFIX;
+            }
+            urlList.add(url);
+        }
+        return urlList;
+    }
+    
     /**
      * 根据请求地址下载url页面
      *
@@ -57,14 +83,14 @@ public class HttpUtils {
                 return EntityUtils.toString(response.getEntity(), "utf-8");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } finally {
             try {
                 if (response != null) {
                     response.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
         return "";
@@ -74,7 +100,7 @@ public class HttpUtils {
      * 下载pdf
      *
      * @param articleList 文章对象list
-     * @param count 第几期
+     * @param count       第几期
      */
     public void doGetPdf(List<Article> articleList, String count) {
         CloseableHttpClient httpClient = HttpClients.custom().setConnectionManager(this.cm).build();
@@ -94,23 +120,22 @@ public class HttpUtils {
             try {
                 Files.createDirectories(path);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
             try (OutputStream outputStream = new FileOutputStream(new File(pathName + name))) {
                 response = httpClient.execute(httpGet);
                 if (response.getStatusLine().getStatusCode() == OK && response.getEntity() != null) {
-
                     response.getEntity().writeTo(outputStream);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             } finally {
                 try {
                     if (response != null) {
                         response.close();
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage());
                 }
             }
         }
@@ -123,21 +148,4 @@ public class HttpUtils {
                 .setSocketTimeout(10 * 1000)
                 .build();
     }
-
-    public List<String> getUrlList(String preUrl, int fullText) {
-        List<String> urlList = new ArrayList<>();
-        for (int i = 1; i <= fullText; i++) {
-            String url;
-            if (i < 10) {
-                url = preUrl + "c00" + i + URLSUFFIX;
-            } else if (i < 100) {
-                url = preUrl + "c0" + i + URLSUFFIX;
-            } else {
-                url = preUrl + "c" + i + URLSUFFIX;
-            }
-            urlList.add(url);
-        }
-        return urlList;
-    }
-
 }
