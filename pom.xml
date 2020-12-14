@@ -14,6 +14,14 @@
     <artifactId>21centuries</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <distributionManagement>
+         <repository>
+                  <id>github</id>
+                  <name>maodunluo</name>
+                  <url>https://maven.pkg.github.com/maodunluo/Twenty-First-Century</url>
+         </repository>
+   </distributionManagement>     
+         
     <properties>
         <start-class>com.yyc.down21centuries.Application</start-class>
     </properties>
