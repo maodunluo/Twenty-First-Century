@@ -1,8 +1,9 @@
 # download twenty-first-century
-<p>下载《二十一世纪》期刊全文版到jar包所在文件夹。</p>
-<p>目前是第1到178期。<p>
-<p>该期刊在官网提供免费阅读下载，但是没有批量下载功能。</p>
-<p>这是我最喜欢的期刊。
-感谢香港中文大学坚持出此期刊。
-总之希望香港能好起来。
+<p>
+Download the full text version of the "Twenty-First Century" journal to the folder where the jar package is located.</p>
+<p>The current issue is from 1 to 178.<p>
+<p>The journal provides free reading and downloading on the official website, but there is no batch download function.</p>
+<p>This is my favorite journal.
+   Thank the Chinese University of Hong Kong for insisting on publishing this journal.
+   In short, I hope Hong Kong will get better.
 </p>
