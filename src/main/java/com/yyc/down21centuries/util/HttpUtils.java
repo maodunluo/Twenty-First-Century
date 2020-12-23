@@ -46,13 +46,14 @@ public class HttpUtils {
     /**
      * 得到全文版的urlList
      *
-     * @param preUrl url前缀
-     * @param fullTextIndex 目前有全文版的期数
+     * @param preUrl     url前缀
+     * @param startIndex 目前起始期数
+     * @param endIndex   目前结束期数
      * @return 拼接好的urlList
      */
-    public List<String> getUrlList(String preUrl, int fullTextIndex) {
+    public List<String> getUrlList(String preUrl, int startIndex, int endIndex) {
         List<String> urlList = new ArrayList<>();
-        for (int i = 1; i <= fullTextIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             String url;
             if (i < 10) {
                 url = preUrl + "c00" + i + URLSUFFIX;
@@ -65,7 +66,7 @@ public class HttpUtils {
         }
         return urlList;
     }
-    
+
     /**
      * 根据请求地址下载url页面
      *
