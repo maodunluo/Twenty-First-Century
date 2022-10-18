@@ -68,7 +68,7 @@ public class DownloadTaskScheduler {
      * @param startIndex 起始期数
      * @param endIndex   结束期数
      */
-    private void startDownloadTask(int startIndex, int endIndex) {
+    public void startDownloadTask(int startIndex, int endIndex) {
         List<String> urlList = httpUtils.getUrlList(PREURL, startIndex, endIndex);
         for (String url : urlList) {
             String content = httpUtils.doGetHtml(url);

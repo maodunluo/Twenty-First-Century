@@ -1,6 +1,7 @@
 package com.yyc.down21centuries.util;
 
 import com.yyc.down21centuries.entity.Article;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,6 +37,9 @@ public class JsoupUtils {
             if (pdfElements.get(i).text().contains("附录")) {
                 authorList.add(i, authorList.get(i - 1));
             }
+            if (StringUtils.isEmpty(pdfElements.get(i).attr("href"))) {
+                continue;
+            }
             pdfTopicList.add(pdfElements.get(i).text());
             pdfUrlList.add(PREURL + pdfElements.get(i).attr("href").substring(6));
         }
@@ -47,7 +51,7 @@ public class JsoupUtils {
         String count = pdfUrlList
                 .get(0)
                 .substring(pdfUrlList.get(0).lastIndexOf("c") + 1, pdfUrlList.get(0).lastIndexOf('-'));
-        for (int i = 0; i < pdfElements.size(); i++) {
+        for (int i = 0; i < pdfUrlList.size(); i++) {
             Article article = new Article();
             article.setAddress(pdfUrlList.get(i));
             article.setTopic(pdfTopicList.get(i));
