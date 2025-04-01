@@ -4,9 +4,6 @@ A modern Java-based tool for downloading issues of the *Twenty-First Century* jo
 
 > 📰 "Twenty-First Century" is my favorite journal. Thanks to the Chinese University of Hong Kong for continuing to publish this excellent work.
 
-![Build](https://github.com/maodunluo/Twenty-First-Century/actions/workflows/test.yml/badge.svg)
-[![codecov](https://codecov.io/gh/maodunluo/Twenty-First-Century/branch/master/graph/badge.svg)](https://codecov.io/gh/maodunluo/Twenty-First-Century)
-![License](https://img.shields.io/github/license/maodunluo/Twenty-First-Century)
 
 ---
 
@@ -47,7 +44,7 @@ You can freely browse or manually download journal issues here:
 ```bash
 Twenty-First-Century/
 ├── src/
-│   └── main/java/com/downloader/       # Core logic for fetching journal PDFs
+│   └── main/java/com/yyc/down21centuries/       # Core logic for fetching journal PDFs
 ├── pom.xml                            # Maven configuration
 └── README.md                          # You're here!
 ```
