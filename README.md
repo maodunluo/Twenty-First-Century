@@ -57,12 +57,6 @@ If you have ideas for improvements (batch downloading, UI, proxy support), feel 
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for more info.
-
----
-
 ## ⭐ Support
 
 If you find this tool helpful, feel free to star this project to support its continued maintenance.
